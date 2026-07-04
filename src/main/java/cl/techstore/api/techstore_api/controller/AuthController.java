@@ -11,12 +11,13 @@ import java.util.Map;
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
+
     @Autowired
     private Jwtutil jwtutil;
 
     @PostMapping("/login")
     public Map<String,String> Login (@RequestBody Map<String,String> user){
-        String token = Jwtutil.generateToken(user.get("usermane"));
+        String token = jwtutil.generateToken(user.get("username"));
         return Map.of("token", token);
     }
 

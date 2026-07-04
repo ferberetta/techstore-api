@@ -9,20 +9,27 @@ import java.util.Date;
 
 @Component
 public class Jwtutil {
-    private static final Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+
+    private final Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+
     private static final int EXPIRATION_TIME = 86400000;
 
-    public static String generateToken(String usermane) {
+    public String generateToken(String username) {
         return Jwts.builder()
-                .setSubject(usermane)
+                .setSubject(username)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .signWith(key)
                 .compact();
     }
 
-    public String extractUsarmane(String token) {
-        return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody().getSubject();
+    public String extractUsarname(String token) {
+        return Jwts.parserBuilder()
+                    .setSigningKey(key)
+                    .build()
+                    .parseClaimsJws(token)
+                    .getBody()
+                    .getSubject();
     }
 
     public boolean validateToken(String token) {

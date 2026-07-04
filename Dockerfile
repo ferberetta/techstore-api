@@ -11,9 +11,9 @@ FROM eclipse-temurin:17-jre-jammy
 WORKDIR /app
 
 COPY --from=build /app/target/*.jar app.jar
-COPY wallet /app/wallet
-
-RUN chmod -R 755 /app/wallet
+#COPY wallet /app/wallet
+RUN mkdir -p /app/wallet && chmod -R 755 /app/wallet
+#RUN chmod -R 755 /app/wallet
 
 EXPOSE 8080
 
